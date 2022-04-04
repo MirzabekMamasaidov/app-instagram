@@ -18,12 +18,12 @@ import java.sql.Timestamp;
 @Entity
 public class Story extends AbsEntity {
     @ManyToOne
-    private User userId;
+    private User user;
 
     @OneToOne
-    private Attachment attachmentId;
+    private Attachment attachment;
 
     private Timestamp addingTime;
 
-        
+
 }

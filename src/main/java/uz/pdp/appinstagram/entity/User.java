@@ -35,6 +35,9 @@ public class User extends AbsNameEntity {
     @Column(nullable = false)
     private boolean isLocked = false;
 
+    @OneToOne
+    private Attachment photoProfile;
+
     @OneToMany(mappedBy = "user")
     private List<Post> postList;
 
@@ -49,6 +52,8 @@ public class User extends AbsNameEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Following> followings;
+
+
 
 
 

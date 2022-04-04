@@ -22,14 +22,21 @@ public class Post extends AbsEntity {
 
     private String description;
 
+    private boolean isSaved;
+
+    private boolean isTagged = false;
+
     @ManyToOne
-    private User userId;
+    private User user;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> commentList;
 
     @OneToMany(mappedBy = "post")
     private List<Like> likes;
+
+    @OneToMany
+    private List<User> taggedUsers;
 
 
 

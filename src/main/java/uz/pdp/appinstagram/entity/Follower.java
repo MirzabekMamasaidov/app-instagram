@@ -17,6 +17,6 @@ import javax.persistence.ManyToOne;
 public class Follower extends AbsEntity {
 
     @ManyToOne
-    private User userId;
+    private User user;
 
 }

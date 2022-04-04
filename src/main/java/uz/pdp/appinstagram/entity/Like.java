@@ -17,13 +17,13 @@ import javax.persistence.ManyToOne;
 public class Like extends AbsEntity {
 
     @ManyToOne
-    private User userId;
+    private User user;
 
     @ManyToOne
-    private Comment commentId;
+    private Comment comment;
 
     @ManyToOne
-    private Post postId;
+    private Post post;
 
 
 
