@@ -1,4 +1,4 @@
-package uz.pdp.appinstagram.config;
+package uz.pdp.appinstagram.component;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
