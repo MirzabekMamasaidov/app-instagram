@@ -22,7 +22,7 @@ public class Post extends AbsEntity {
 
     private String description;
 
-    private boolean isSaved;
+    private boolean isSaved = false;
 
     private boolean isTagged = false;
 
