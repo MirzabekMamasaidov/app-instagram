@@ -19,14 +19,16 @@ public class User extends AbsNameEntity {
     @Column(unique = true,nullable = false)
     private String username;
 
+    private String password;
+
     private String website;
 
     private String bio;
 
-    @Column(nullable = false,unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(nullable = false,unique = true)
+    @Column(unique = true)
     private String phone;
 
     @Column(nullable = false)

@@ -16,7 +16,7 @@ public class AttachmentContent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private byte[] asosiyContent;//asosiy content
+    private byte[] bytes;//asosiy content
 
     @OneToOne
     private Attachment attachment;

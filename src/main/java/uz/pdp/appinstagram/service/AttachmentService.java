@@ -23,29 +23,32 @@ public class AttachmentService {
     AttachmentContentRepository attachmentContentRepository;
 
     public ApiResponse upload(MultipartHttpServletRequest request) {
-        //faqat nomlari
+
         Iterator<String> fileNames = request.getFileNames();
-        //realniy fayllar
+        MultipartFile file = request.getFile(fileNames.next());
+        if (file!=null){
+            String originalFilename = file.getOriginalFilename();
+            long size = file.getSize();
+            String contentType = file.getContentType();
+            Attachment attachment = new Attachment();
+            attachment.setFileOriginalName(originalFilename);
+            attachment.setSize(size);
+            attachment.setContentType(contentType);
 
-        while (fileNames.hasNext()) {
-            List<MultipartFile> files = request.getFiles(fileNames.next());
-            for (MultipartFile file : files) {
-                Attachment attachment = new Attachment(
-                        file.getOriginalFilename(),
-                        file.getSize(),
-                        file.getContentType());
+            Attachment savedAttachment = attachmentRepository.save(attachment);
 
-                Attachment save = attachmentRepository.save(attachment);
-                AttachmentContent attachmentContent = new AttachmentContent();
-                attachmentContent.setAttachment(save);
-                try {
-                    attachmentContent.setAsosiyContent(file.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                attachmentContentRepository.save(attachmentContent);
+            AttachmentContent attachmentContent = new AttachmentContent();
+            try {
+                attachmentContent.setBytes(file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            attachmentContent.setAttachment(savedAttachment);
+
+            attachmentContentRepository.save(attachmentContent);
+            return new ApiResponse("uploaded",true);
         }
-        return new ApiResponse("Mana", true);
+        return new ApiResponse("Error",false);
+
     }
 }
