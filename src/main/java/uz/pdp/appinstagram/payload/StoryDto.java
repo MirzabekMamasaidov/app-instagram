@@ -16,5 +16,5 @@ public class StoryDto {
 
     private Integer userId;
     private Integer attachmentId;
-    private Timestamp addingTime;
+
 }

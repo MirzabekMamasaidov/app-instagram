@@ -61,7 +61,7 @@ public class CommentService {
     public ApiResponse delet(UUID id) {
 
         Optional<Comment> commentOptional = commentRepository.findById(id);
-        if (!commentOptional.isPresent()) {
+        if (commentOptional.isEmpty()) {
             return new ApiResponse("Bunday id li comment mavjud emas",false);
         }
         commentRepository.deleteById(id);
