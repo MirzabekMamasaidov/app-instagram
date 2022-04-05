@@ -31,11 +31,15 @@ public class CommentController {
         return ResponseEntity.status(apiResponse.isSuccess()?HttpStatus.OK:HttpStatus.NO_CONTENT).body(apiResponse);
     }
 
-//    @PutMapping("/{id}")
-//    public HttpEntity<?> edit(@PathVariable Integer id , @RequestBody CommentDto commentDto){
-//        ApiResponse edit=commentService.edit(id,commentDto);
-//        return ResponseEntity.status(edit.isSuccess()?HttpStatus.OK:HttpStatus.NO_CONTENT).body(edit);
-//    }
+
+    @PutMapping("/like/{commentId}")
+    public HttpEntity<?> addOrDelete(@PathVariable UUID commentId,@RequestParam Integer userId){
+        ApiResponse response = commentService.addOrDelete(commentId, userId);
+        return ResponseEntity.status(response.isSuccess()?
+                HttpStatus.OK:HttpStatus.CONFLICT).body(response);
+    }
+
+
 
     @DeleteMapping("/{id}")
     public HttpEntity<?> delet(@PathVariable UUID id){

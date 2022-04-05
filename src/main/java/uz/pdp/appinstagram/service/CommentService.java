@@ -4,6 +4,7 @@ package uz.pdp.appinstagram.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.appinstagram.entity.Comment;
+import uz.pdp.appinstagram.entity.Like;
 import uz.pdp.appinstagram.entity.Post;
 import uz.pdp.appinstagram.entity.User;
 import uz.pdp.appinstagram.payload.ApiResponse;
@@ -38,13 +39,13 @@ public class CommentService {
     public ApiResponse add(CommentDto commentDto) {
 
         Optional<Post> optionalPost = postRepository.findById(commentDto.getPostId());
-        if (!optionalPost.isPresent()) {
-            return new ApiResponse("Post mavjud emas",false);
+        if (optionalPost.isEmpty()) {
+            return new ApiResponse("Post not found",false);
         }
 
         Optional<User> optionalUser = userRepository.findById(commentDto.getUserId());
-        if (!optionalUser.isPresent()) {
-            return new ApiResponse("User mavjud emas",false);
+        if (optionalUser.isEmpty()) {
+            return new ApiResponse("User not found",false);
         }
 
         Comment comment=new Comment();
@@ -53,7 +54,7 @@ public class CommentService {
         comment.setUser(optionalUser.get());
         comment.setLikes(commentDto.getLikes());
         Comment save = commentRepository.save(comment);
-        return  new ApiResponse("Qo'shildi",true,save);
+        return  new ApiResponse("Added",true,save);
     }
 
 
@@ -65,5 +66,25 @@ public class CommentService {
         }
         commentRepository.deleteById(id);
         return new ApiResponse("O'chirildi",true);
+    }
+
+    public ApiResponse addOrDelete(UUID commentId,Integer userId) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if (optionalComment.isEmpty()) {
+            return new ApiResponse("Not found comment",false);
+        }
+        Comment editingComment = optionalComment.get();
+        List<Like> likeList = editingComment.getLikes();
+        for (Like like : editingComment.getLikes()) {
+            if (like.getUser().getId().equals(userId)) {
+                likeList.remove(like);
+                editingComment.setLikes(likeList);
+            }
+            else {
+                likeList.add(like);
+                editingComment.setLikes(likeList);
+            }
+        }
+        return new ApiResponse("Like added or deleted",true);
     }
 }

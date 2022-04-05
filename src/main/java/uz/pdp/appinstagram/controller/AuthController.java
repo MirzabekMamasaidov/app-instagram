@@ -9,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.appinstagram.entity.User;
 import uz.pdp.appinstagram.payload.ApiResponse;
 import uz.pdp.appinstagram.payload.LoginDTO;
 import uz.pdp.appinstagram.payload.RegisterDto;
+import uz.pdp.appinstagram.security.CurrentUser;
 import uz.pdp.appinstagram.security.JwtProvider;
 import uz.pdp.appinstagram.service.AuthService;
 
@@ -35,6 +37,11 @@ public class AuthController {
         String token=jwtProvider.generateToken(loginDTO.getUserName());
         return ResponseEntity.ok().body(token);
     }
+    @GetMapping("/me")
+    public HttpEntity<?> getMe(@CurrentUser User user) { //Parametr
+        return ResponseEntity.ok().body("Mana" + user);
+    }
+
 
     @PostMapping("/register")
     public HttpEntity<?> register(@RequestBody RegisterDto dto) throws MessagingException {
