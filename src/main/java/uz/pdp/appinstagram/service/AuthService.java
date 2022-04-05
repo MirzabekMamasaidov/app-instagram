@@ -79,8 +79,7 @@ public class AuthService implements UserDetailsService {
         message.setFrom("pdp@gmail.com");
         message.setTo(dto.getNumberOrEmail());
         message.setSubject("Confirmation code");
-        message.setText("<a href='localhost/api/auth/verifyEmail?email=" + dto.getNumberOrEmail()
-                + "&code=" + code + "'>Confirmation code</a>");
+        message.setText(code);
         message.setSentDate(new Date());
         mailSender.getEmail().send(message);
 

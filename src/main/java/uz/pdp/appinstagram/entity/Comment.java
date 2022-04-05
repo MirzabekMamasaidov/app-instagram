@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class    Comment extends AbsEntity {
+public class Comment extends AbsEntity {
 
     private String text;
 

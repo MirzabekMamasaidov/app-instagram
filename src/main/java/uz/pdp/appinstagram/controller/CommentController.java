@@ -1,7 +1,6 @@
 package uz.pdp.appinstagram.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +12,14 @@ import uz.pdp.appinstagram.service.CommentService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api/comment")
 public class CommentController {
 
-    @Autowired
-    CommentService commentService;
+    final CommentService commentService;
+
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public HttpEntity<?> getAll(){

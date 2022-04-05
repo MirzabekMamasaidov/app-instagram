@@ -15,7 +15,6 @@ import uz.pdp.appinstagram.repository.UserRepository;
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
 public record PostService(AttachmentRepository attachmentRepository,
                           PostRepository postRepository,
                           UserRepository userRepository) {
@@ -69,7 +68,8 @@ public record PostService(AttachmentRepository attachmentRepository,
     public List<Post> getAllByTagged(Integer userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         User user = optionalUser.get();
-        return postRepository.findAllByTaggedUsersIs(Collections.singletonList(user));
+//        return null;
+        return postRepository.getAllByTagged(userId);
     }
 
     public Optional<Post> getOne(UUID postId) {
@@ -110,7 +110,7 @@ public record PostService(AttachmentRepository attachmentRepository,
                 editingPost.setLikes(likeList);
             }
         }
-        return new ApiResponse("Like added", true);
+        return new ApiResponse("Like added or deleted", true);
     }
 
     public ApiResponse delete(UUID postId) {

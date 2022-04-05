@@ -31,7 +31,7 @@ public class User extends AbsNameEntity {
     @Column(unique = true)
     private String phone;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String gender;
 
     @Column(nullable = false)

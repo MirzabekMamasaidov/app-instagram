@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "likes")
 public class Like extends AbsEntity {
 
     @ManyToOne

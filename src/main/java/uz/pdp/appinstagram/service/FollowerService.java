@@ -1,6 +1,5 @@
 package uz.pdp.appinstagram.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.appinstagram.entity.Follower;
 import uz.pdp.appinstagram.entity.User;
@@ -12,21 +11,16 @@ import uz.pdp.appinstagram.repository.UserRepository;
 import java.util.List;
 
 @Service
-public class FollowerService {
+public record FollowerService(FollowerRepository followerRepository,
+                              UserRepository userRepository) {
 
-
-    @Autowired
-    FollowerRepository followerRepository;
-
-    @Autowired
-    UserRepository userRepository;
 
     public ApiResponse getAll() {
         List<Follower> all = followerRepository.findAll();
         if (all.isEmpty()) {
-            return new ApiResponse("List bo'sh",false);
+            return new ApiResponse("List bo'sh", false);
         }
-        return new ApiResponse("Mana",true ,followerRepository.findAll());
+        return new ApiResponse("Mana", true, followerRepository.findAll());
     }
 
 
@@ -35,24 +29,24 @@ public class FollowerService {
             if (user.isActive()) {
                 for (Follower userFollower : user.getFollowers()) {
                     if (!userFollower.getUser().getId().equals(followerDto.getUserId())) {
-                        Follower follower =new Follower();
+                        Follower follower = new Follower();
                         follower.setUser(userFollower.getUser());
                         Follower save = followerRepository.save(follower);
-                        return new ApiResponse("Qo'shildi",true,save);
+                        return new ApiResponse("Qo'shildi", true, save);
                     }
                 }
             }
         }
 
-        return new ApiResponse("Bunday id li user yo'q",false);
+        return new ApiResponse("Bunday id li user yo'q", false);
     }
 
     public ApiResponse delet(Integer id) {
         boolean deletByid = followerRepository.deleteById(id);
         if (deletByid) {
-            return new ApiResponse("O'chirildi",true);
+            return new ApiResponse("O'chirildi", true);
         }
-        return new ApiResponse("Bunday id li followermavjud emas",false);
+        return new ApiResponse("Bunday id li followermavjud emas", false);
     }
 }
 
