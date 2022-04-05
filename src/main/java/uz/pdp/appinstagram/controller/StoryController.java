@@ -12,5 +12,5 @@ public class StoryController {
     @Autowired
     StoryService storyService;
 
-    
+
 }
