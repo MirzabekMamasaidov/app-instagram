@@ -26,4 +26,6 @@ public class Story extends AbsEntity {
     private Timestamp addingTime;
 
 
+
+
 }
