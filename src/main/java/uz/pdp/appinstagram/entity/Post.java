@@ -26,6 +26,9 @@ public class Post extends AbsEntity {
 
     private boolean isTagged = false;
 
+    @OneToMany
+    private List<Attachment> attachments;
+
     @ManyToOne
     private User user;
 

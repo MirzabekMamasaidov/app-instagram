@@ -21,14 +21,20 @@ import java.util.UUID;
 
 @Service
 public class AuthService implements UserDetailsService {
-    @Autowired
+    final
     UserRepository userRepository;
 
-    @Autowired
+    final
     MailSender mailSender;
 
-    @Autowired
+    final
     PasswordEncoder passwordEncoder;
+
+    public AuthService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.mailSender = mailSender;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
