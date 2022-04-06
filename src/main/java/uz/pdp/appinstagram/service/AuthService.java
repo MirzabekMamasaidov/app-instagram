@@ -90,7 +90,7 @@ public class AuthService implements UserDetailsService {
     }
     public ApiResponse verify(String email, String password) {
         Optional<User> byUserName = userRepository.findByUsername(email);
-        if (byUserName.isEmpty()) return new ApiResponse("Error",false);
+        if (!byUserName.isPresent()) return new ApiResponse("Error",false);
 
         if (!byUserName.get().getPassword().equals(passwordEncoder.encode(password)))
             return new ApiResponse("Confirmation code is wrong",false);

@@ -40,12 +40,12 @@ public class CommentService {
     public ApiResponse add(CommentDto commentDto) {
 
         Optional<Post> optionalPost = postRepository.findById(commentDto.getPostId());
-        if (optionalPost.isEmpty()) {
+        if (!optionalPost.isPresent()) {
             return new ApiResponse("Post not found", false);
         }
 
         Optional<User> optionalUser = userRepository.findById(commentDto.getUserId());
-        if (optionalUser.isEmpty()) {
+        if (!optionalUser.isPresent()) {
             return new ApiResponse("User not found", false);
         }
 
@@ -62,7 +62,7 @@ public class CommentService {
     public ApiResponse delet(UUID id) {
 
         Optional<Comment> commentOptional = commentRepository.findById(id);
-        if (commentOptional.isEmpty()) {
+        if (!commentOptional.isPresent()) {
             return new ApiResponse("Bunday id li comment mavjud emas", false);
         }
         commentRepository.deleteById(id);
@@ -71,7 +71,7 @@ public class CommentService {
 
     public ApiResponse addOrDelete(UUID commentId, Integer userId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (optionalComment.isEmpty()) {
+        if (!optionalComment.isPresent()) {
             return new ApiResponse("Not found comment", false);
         }
         Comment editingComment = optionalComment.get();

@@ -35,7 +35,7 @@ public class PostService {
         }
             post.setAttachments(attachmentRepository.findAllById(dto.getAttachmentIds()));
         Optional<User> optionalUser = userRepository.findById(dto.getUserId());
-        if (optionalUser.isEmpty()) {
+        if (!optionalUser.isPresent()) {
             return new ApiResponse("User not found",false);
         }
         post.setUser(optionalUser.get());
@@ -86,7 +86,7 @@ public class PostService {
     public ApiResponse edit(UUID postId, PostDto dto) {
 
         Optional<Post> optionalPost = postRepository.findById(postId);
-        if (optionalPost.isEmpty()) {
+        if (!optionalPost.isPresent()) {
             return new ApiResponse("Not found post",false);
         }
         Post editingPost = optionalPost.get();
@@ -102,7 +102,7 @@ public class PostService {
 
     public ApiResponse addOrDeleteLike(UUID postId, Integer userId) {
         Optional<Post> optionalPost = postRepository.findById(postId);
-        if (optionalPost.isEmpty()) {
+        if (!optionalPost.isPresent()) {
             return new ApiResponse("Not found post",false);
         }
         Post editingPost = optionalPost.get();
@@ -122,7 +122,7 @@ public class PostService {
 
     public ApiResponse delete(UUID postId) {
         Optional<Post> optionalPost = postRepository.findById(postId);
-        if (optionalPost.isEmpty()) {
+        if (!optionalPost.isPresent()) {
             return new ApiResponse("Not found post",false);
         }
         postRepository.delete(optionalPost.get());
