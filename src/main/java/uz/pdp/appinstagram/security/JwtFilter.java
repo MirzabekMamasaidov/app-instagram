@@ -1,6 +1,7 @@
 package uz.pdp.appinstagram.security;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,16 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
     final JwtProvider jwtProvider;
 
     final AuthService authService;
 
-    public JwtFilter(JwtProvider jwtProvider, AuthService authService) {
-        this.jwtProvider = jwtProvider;
-        this.authService = authService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

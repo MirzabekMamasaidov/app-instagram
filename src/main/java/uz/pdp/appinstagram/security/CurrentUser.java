@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.PARAMETER})
+@Target({ElementType.LOCAL_VARIABLE, ElementType.TYPE, ElementType.PARAMETER})
 @AuthenticationPrincipal
 public @interface CurrentUser {
 }

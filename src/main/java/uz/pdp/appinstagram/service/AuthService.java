@@ -1,5 +1,6 @@
 package uz.pdp.appinstagram.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import uz.pdp.appinstagram.entity.User;
 import uz.pdp.appinstagram.payload.ApiResponse;
 import uz.pdp.appinstagram.payload.RegisterDto;
 import uz.pdp.appinstagram.repository.UserRepository;
+import uz.pdp.appinstagram.security.CurrentUser;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
@@ -21,6 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
     final
     UserRepository userRepository;
@@ -30,12 +33,6 @@ public class AuthService implements UserDetailsService {
 
     final
     PasswordEncoder passwordEncoder;
-
-    public AuthService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.mailSender = mailSender;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -69,9 +66,8 @@ public class AuthService implements UserDetailsService {
 
 
         //4 xonali
-        String code = UUID.randomUUID().toString().substring(0, 5).concat(UUID.randomUUID().toString().substring(0, 5));
-
-
+        String code = UUID.randomUUID().toString().substring(0,5);//.concat(UUID.randomUUID().toString().substring(0,5));
+        user.setCode(code);
         //mail chaqirib xabar jo'natish kerak
         SimpleMailMessage message = new SimpleMailMessage();
         MimeBodyPart mimeBodyPart = new MimeBodyPart();

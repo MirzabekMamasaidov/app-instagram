@@ -18,9 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-public class User extends AbsNameEntity  implements UserDetails {
+public class User extends AbsNameEntity implements UserDetails {
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
 
     private String password;
@@ -60,12 +60,18 @@ public class User extends AbsNameEntity  implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Following> followings;
 
-    private String code = null;
+    private String code;
+    private boolean enabled = false;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -85,6 +91,7 @@ public class User extends AbsNameEntity  implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
+
 }
