@@ -2,6 +2,7 @@ package uz.pdp.appinstagram.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,8 +39,7 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return (UserDetails) userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
+        return (UserDetails) userRepository.findByUsername(username).get();
     }
 
     public ApiResponse register(RegisterDto dto) throws MessagingException {

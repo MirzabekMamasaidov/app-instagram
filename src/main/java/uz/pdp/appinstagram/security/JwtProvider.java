@@ -24,13 +24,13 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String getUsernameFromToken(String token) {
+   public String getUserNameFromToken(String token){
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-    }
+   }
 
     public boolean expireToken(String token) {
         try {

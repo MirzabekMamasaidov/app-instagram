@@ -6,7 +6,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
-
 @Configuration
 public class MailSender {
 
@@ -16,12 +15,12 @@ public class MailSender {
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
         javaMailSender.setProtocol("smtp");
-        javaMailSender.setUsername("bootcampzoom97@gmail.com");
-        javaMailSender.setPassword("#bootcamp");
+        javaMailSender.setUsername("mamasaidovmirzabek@gmail.com");
+        javaMailSender.setPassword("mgpwbdj97");
 
 
         Properties properties = javaMailSender.getJavaMailProperties();
-        properties.put("mail.transport.protocol", "true");
+        properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.debug", "true");

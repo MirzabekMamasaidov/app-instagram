@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface FollowerRepository extends JpaRepository<Follower, UUID> {
     boolean deleteById(Integer id);
+
 }

@@ -17,9 +17,9 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-     final JwtProvider jwtProvider;
+    final JwtProvider jwtProvider;
 
-     final AuthService authService;
+    final AuthService authService;
 
     public JwtFilter(JwtProvider jwtProvider, AuthService authService) {
         this.jwtProvider = jwtProvider;
@@ -29,20 +29,20 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("Authorization");
+//        token = token.substring(7);
         //validate expired kimga tegishli
         if (jwtProvider.validateToken(token)) {
             if (jwtProvider.expireToken(token)) {
-                String username = jwtProvider.getUsernameFromToken(token);
+                String username = jwtProvider.getUserNameFromToken(token);
+                if (username!=null){
                 UserDetails userDetails = authService.loadUserByUsername(username);
-                SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities())
-                );
-            }
+                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities()));
+            }}
 
         }
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
 
-        doFilter(request, response, filterChain);
+      doFilter(request,response,filterChain);
 
     }
 }
