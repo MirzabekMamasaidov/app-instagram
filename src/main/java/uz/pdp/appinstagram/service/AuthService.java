@@ -93,4 +93,15 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("It's a good",true);
     }
 
+    public ApiResponse verifyCode(String code,String username) {
+
+        Optional<User> byUsername = userRepository.findByUsername(username);
+        if (!byUsername.isPresent()) {
+            return new ApiResponse("User not found",false);
+        }
+        if (byUsername.get().getCode().equals(code)) {
+            return new ApiResponse("Success",true);
+        }
+        return new ApiResponse("Confirmation code is wrong",false);
+    }
 }

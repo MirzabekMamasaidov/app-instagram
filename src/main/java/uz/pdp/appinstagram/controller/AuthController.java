@@ -58,20 +58,20 @@ public class AuthController {
     }
 
     @GetMapping("/verifyCode")
-    public HttpEntity<?> verifyCode(@RequestParam("code") String code) {
+    public HttpEntity<?> verifyCode(@RequestParam("code") String code,@RequestParam("username") String username) {
 
         /*ApiResponse response = authService.verify(email, password);
         return ResponseEntity.status(response.isSuccess()?
                 HttpStatus.OK:HttpStatus.CONFLICT).body(response);*/
-        @CurrentUser
-        User user=null;
+       /* @CurrentUser
+        User user = null;
         if(user.getCode().equals(code)){
             user.setEnabled(true);
         }else {
             user.setEnabled(false);
-        }
-
-        return ResponseEntity.ok().body("Success");
+        }*/
+        ApiResponse response = authService.verifyCode(code, username);
+        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
 
     }
 
