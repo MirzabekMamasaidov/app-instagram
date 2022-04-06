@@ -17,9 +17,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public record CommentService(CommentRepository commentRepository,
-                             PostRepository postRepository,
-                             UserRepository userRepository) {
+public class CommentService {
+
+    final CommentRepository commentRepository;
+
+    final PostRepository postRepository;
+    final UserRepository userRepository;
+
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository) {
+        this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
+    }
 
 
     public ApiResponse getAll() {

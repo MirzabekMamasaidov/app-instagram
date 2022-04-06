@@ -1,6 +1,5 @@
 package uz.pdp.appinstagram.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.pdp.appinstagram.entity.Attachment;
 import uz.pdp.appinstagram.entity.Like;
@@ -15,9 +14,17 @@ import uz.pdp.appinstagram.repository.UserRepository;
 import java.util.*;
 
 @Service
-public record PostService(AttachmentRepository attachmentRepository,
-                          PostRepository postRepository,
-                          UserRepository userRepository) {
+public class PostService {
+
+    final AttachmentRepository attachmentRepository;
+    final PostRepository postRepository;
+    final UserRepository userRepository;
+
+    public PostService(AttachmentRepository attachmentRepository, PostRepository postRepository, UserRepository userRepository) {
+        this.attachmentRepository = attachmentRepository;
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
+    }
 
     public ApiResponse add(PostDto dto) {
         Post post = new Post();

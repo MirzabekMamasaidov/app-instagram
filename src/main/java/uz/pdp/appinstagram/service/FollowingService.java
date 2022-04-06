@@ -12,8 +12,15 @@ import uz.pdp.appinstagram.repository.UserRepository;
 import java.util.List;
 
 @Service
-public record FollowingService(FollowingRepository followingRepository,
-                               UserRepository userRepository) {
+public class FollowingService {
+
+    final FollowingRepository followingRepository;
+    final UserRepository userRepository;
+
+    public FollowingService(FollowingRepository followingRepository, UserRepository userRepository) {
+        this.followingRepository = followingRepository;
+        this.userRepository = userRepository;
+    }
 
     public ApiResponse getAll() {
         List<Following> all = followingRepository.findAll();

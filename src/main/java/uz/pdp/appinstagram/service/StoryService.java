@@ -4,6 +4,11 @@ import org.springframework.stereotype.Service;
 import uz.pdp.appinstagram.repository.StoryRepository;
 
 @Service
-public record StoryService(StoryRepository storyRepository) {
+public class StoryService {
 
+    final StoryRepository storyRepository;
+
+    public StoryService(StoryRepository storyRepository) {
+        this.storyRepository = storyRepository;
+    }
 }
